@@ -12,6 +12,34 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'assetManager' => [
+            'forceCopy' => YII_DEBUG ? true : false, // 開発中はassetsを常に上書きする。本番は、gitで上げたassetsが読まれるので、パフォーマンスのためにfalseっとく
+            'appendTimestamp' => true, // 最終更新日時が変わったら、ブラウザキャッシュもクリアされるようにする
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    // 'sourcePath' => '@app-npm-assets/bootstrap/dist',   // do not publish the bundle
+                    'css' => [
+                        // (YII_DEBUG) ? 'css/bootstrap.css' : 'css/bootstrap.min.css'
+                        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css',
+                    ],
+                    'js' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    // 'sourcePath' => '@app-npm-assets/bootstrap/dist',   // do not publish the bundle
+                    'js' => [
+                        'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
+                        'js/bootstrap.min.js',
+                    ],
+                    'depends' => ['yii\web\JqueryAsset'],
+                ],
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,   // do not publish the bundle
+                    'js' => [
+                        'https://code.jquery.com/jquery-3.2.1.min.js',
+                    ],
+                ],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'NKtCB3Spo99brNf6HJzNO_p8gYJvBwPk',
