@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'name' => 'ニチアサッター',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -46,8 +47,13 @@ $config = [
             'clients' => [
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
-                    'clientId' => getenv('TWITTER_CLIENT_ID'),
-                    'clientSecret' => getenv('TWITTER_CLIENT_SECRET'),
+                    'attributeParams' => [
+                        'include_email' => 'true'
+                    ],
+                    // 'clientId' => getenv('TWITTER_CONSUMER_KEY'),
+                    // 'clientSecret' => getenv('TWITTER_CONSUMER_SECRET'),
+                    'consumerKey' => getenv('TWITTER_CONSUMER_KEY'),
+                    'consumerSecret' => getenv('TWITTER_CONSUMER_SECRET'),
                 ],
             ],
         ],

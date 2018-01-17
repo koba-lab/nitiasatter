@@ -50,7 +50,6 @@ class AuthHandler
                     $password = Yii::$app->security->generateRandomString(6);
                     $user = new User([
                         'username' => $nickname,
-                        'github' => $nickname,
                         'email' => $email,
                         'password' => $password,
                     ]);
