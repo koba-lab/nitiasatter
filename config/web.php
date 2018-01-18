@@ -48,7 +48,7 @@ $config = [
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
                     'attributeParams' => [
-                        'include_email' => 'true'
+                        'include_email' => true
                     ],
                     // 'clientId' => getenv('TWITTER_CONSUMER_KEY'),
                     // 'clientSecret' => getenv('TWITTER_CONSUMER_SECRET'),

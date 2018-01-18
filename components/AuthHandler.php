@@ -40,7 +40,7 @@ class AuthHandler
                 /* @var User $user */
                 $user = $auth->user;
                 $this->updateUserInfo($user);
-                Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+                Yii::$app->user->login($user, true);
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [
@@ -125,9 +125,9 @@ class AuthHandler
     private function updateUserInfo(User $user)
     {
         $attributes = $this->client->getUserAttributes();
-        $github = ArrayHelper::getValue($attributes, 'login');
-        if ($user->github === null && $github) {
-            $user->github = $github;
+        $nickname = ArrayHelper::getValue($attributes, 'name');
+        if ($user->username === null && $nickname) {
+            $user->username = $nickname;
             $user->save();
         }
     }
