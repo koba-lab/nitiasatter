@@ -19,7 +19,7 @@ class m180116_031801_auth_and_user extends Migration
             'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->notNull(),
-            'email' => $this->string()->notNull(),
+            'email' => $this->string()->defaultValue(NULL),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),

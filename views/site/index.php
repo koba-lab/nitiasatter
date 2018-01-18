@@ -10,9 +10,15 @@ $this->title = 'ニチアサッター - ニチアサ実況用Twitterクライア
             <p>ニチアサッターは、ニチアサ実況をより快適に行うためのTwitterクライアントです。</p>
             <p>ニチアサったーで快適な実況生活を始めましょう！</p>
         </div>
+<?php if (Yii::$app->user->isGuest): ?>
         <?= yii\authclient\widgets\AuthChoice::widget([
             'baseAuthUrl' => ['site/auth'],
             'popupMode' => false,
         ]) ?>
+<?php else: ?>
+        <div>
+            ログイン中
+        </div>
+<?php endif; ?>
     </div>
 </div>

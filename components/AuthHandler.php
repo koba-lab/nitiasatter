@@ -27,7 +27,7 @@ class AuthHandler
         $attributes = $this->client->getUserAttributes();
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
-        $nickname = ArrayHelper::getValue($attributes, 'login');
+        $nickname = ArrayHelper::getValue($attributes, 'name');
 
         /* @var Auth $auth */
         $auth = Auth::find()->where([
@@ -66,7 +66,7 @@ class AuthHandler
                         ]);
                         if ($auth->save()) {
                             $transaction->commit();
-                            Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+                            Yii::$app->user->login($user, true);
                         } else {
                             Yii::$app->getSession()->setFlash('error', [
                                 Yii::t('app', 'Unable to save {client} account: {errors}', [
