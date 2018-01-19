@@ -18,6 +18,7 @@ $this->title = 'ニチアサッター - ニチアサ実況用Twitterクライア
 <?php else: ?>
         <div>
             ログイン中
+            <?= var_export(Yii::$app->authClientCollection->getClient('twitter')->getUserAttributes(), TRUE) ?>
         </div>
 <?php endif; ?>
     </div>

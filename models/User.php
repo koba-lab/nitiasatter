@@ -17,6 +17,8 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $thumbnail_url
+ * @property string $account_url
  *
  * @property Auth[] $auths
  */
@@ -38,7 +40,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             [['username', 'auth_key', 'password_hash', 'password_reset_token'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'thumbnail_url', 'account_url'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,6 +59,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'thumbnail_url' => Yii::t('app', 'Thumbnail Url'),
+            'account_url' => Yii::t('app', 'Account Url'),
         ];
     }
 

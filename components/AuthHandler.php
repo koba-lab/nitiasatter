@@ -28,6 +28,8 @@ class AuthHandler
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
         $nickname = ArrayHelper::getValue($attributes, 'name');
+        $thumbnailUrl = ArrayHelper::getValue($attributes, 'profile_image_url_https');
+        $accountUrl = ArrayHelper::getValue($attributes, 'url');
 
         /* @var Auth $auth */
         $auth = Auth::find()->where([
@@ -52,6 +54,8 @@ class AuthHandler
                         'username' => $nickname,
                         'email' => $email,
                         'password' => $password,
+                        'thumbnail_url' => $thumbnailUrl,
+                        'account_url' => $accountUrl,
                     ]);
                     $user->generateAuthKey();
                     $user->generatePasswordResetToken();
@@ -126,9 +130,14 @@ class AuthHandler
     {
         $attributes = $this->client->getUserAttributes();
         $nickname = ArrayHelper::getValue($attributes, 'name');
-        if ($user->username === null && $nickname) {
-            $user->username = $nickname;
-            $user->save();
-        }
+        $thumbnailUrl = ArrayHelper::getValue($attributes, 'profile_image_url_https');
+        $accountUrl = ArrayHelper::getValue($attributes, 'url');
+        $user->setAttributes([
+            'username' => $nickname,
+            'thumbnail_url' => $thumbnailUrl,
+            'account_url' => $accountUrl,
+        ]);
+
+        return $user->save();
     }
 }
