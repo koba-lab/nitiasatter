@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\components\AuthHandler;
+use app\models\StatusForm;
 
 class SiteController extends Controller
 {
@@ -66,7 +67,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $statusForm = new StatusForm;
+        if ($statusForm->load(Yii::$app->request->post()) && $statusForm->postStatus()) {
+            Yii::$app->session->setFlash('つぶやきの投稿が完了しました');
+            return $this->refresh();
+        }
+
+        return $this->render('index', [
+            'form' => $statusForm,
+        ]);
     }
 
     /**
