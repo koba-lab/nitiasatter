@@ -10,6 +10,7 @@ use yii\base\Model;
  */
 class StatusForm extends Model
 {
+    public $tag;
     public $status;
 
     /**
@@ -18,8 +19,17 @@ class StatusForm extends Model
     public function rules()
     {
         return [
+            ['tag', 'string', 'max' => 100],
             ['status', 'string', 'max' => 280],
         ];
+    }
+
+    /**
+     * 
+     */
+    public function setDefaultTag()
+    {
+        $this->tag = "#nitiasa"; // @todo あとでDBとかから取得するようにします
     }
 
     /**
@@ -27,6 +37,8 @@ class StatusForm extends Model
      */
     public function postStatus()
     {
+        $this->status .= "\n" . $this->tag;
+
         if (!$this->validate()) {
             return false;
         }

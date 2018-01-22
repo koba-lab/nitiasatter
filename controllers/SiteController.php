@@ -69,9 +69,11 @@ class SiteController extends Controller
     {
         $statusForm = new StatusForm;
         if ($statusForm->load(Yii::$app->request->post()) && $statusForm->postStatus()) {
-            Yii::$app->session->setFlash('つぶやきの投稿が完了しました');
+            Yii::$app->session->setFlash('success', 'つぶやきの投稿が完了しました');
             return $this->refresh();
         }
+
+        $statusForm->setDefaultTag();
 
         return $this->render('index', [
             'form' => $statusForm,
