@@ -27,13 +27,16 @@ debconf-set-selections <<< "mysql-community-server mysql-community-server/re-roo
 echo "Done!"
 
 info "Update OS software"
+curl -sL https://deb.nodesource.com/setup_9.x | bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 add-apt-repository -y ppa:ondrej/php
 apt-get update -y
 apt-get install -y software-properties-common python-software-properties
 apt-get upgrade -y
 
 info "Install additional software"
-apt-get install -y php7.1-curl php7.1-cli php7.1-intl php7.1-mysqlnd php7.1-gd php7.1-fpm php7.1-mbstring php7.1-xml unzip nginx mysql-server-5.7
+apt-get install -y php7.1-curl php7.1-cli php7.1-intl php7.1-mysqlnd php7.1-gd php7.1-fpm php7.1-mbstring php7.1-xml unzip nginx mysql-server-5.7 nodejs build-essential yarn
 
 info "Configure MySQL"
 sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
