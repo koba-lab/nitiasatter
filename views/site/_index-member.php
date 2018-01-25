@@ -12,6 +12,9 @@ $this->registerCss('
 .l-status-form .nav-pills a {
     font-size: .9rem;
 }
+.l-status-form .nav-pills .nav-link.active {
+    border-radius: 2rem;
+}
 ');
 ?>
 <div class="row">
