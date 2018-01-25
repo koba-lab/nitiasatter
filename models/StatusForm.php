@@ -29,7 +29,8 @@ class StatusForm extends Model
      */
     public function setDefaultTag()
     {
-        $this->tag = "#nitiasa"; // @todo あとでDBとかから取得するようにします
+        $program = new Program;
+        $this->tag = implode(' ', $program->getCurrentTags());
     }
 
     /**
