@@ -7,28 +7,35 @@ use yii\helpers\Html;
 $this->registerCss('
 .l-status-form textarea {
     height: 20vh;
+    min-height: 6rem;
+}
+.l-status-form .nav-pills a {
+    font-size: .9rem;
 }
 ');
 ?>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="l-status-form">
             <?= Html::beginForm() ?>
                 <div class="form-group">
                     <?= Html::activeTextarea($form, 'status', ['class' => 'form-control', 'placeholder' => '実況してみよう！']) ?>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <?= Html::activeInput('text', $form, 'tag', ['class' => 'form-control']) ?>
+                <div class="form-group">
+                    <?= Html::activeInput('text', $form, 'tag', ['class' => 'form-control mb-2']) ?>
+                    <div class="nav nav-pills nav-justified">
+                        <a href="#" class="nav-item nav-link active">プリキュア</a>
+                        <a href="#" class="nav-item nav-link">仮面ライダー</a>
+                        <a href="#" class="nav-item nav-link">ヒーロー戦隊</a>
                     </div>
-                    <div>
-                        <?= Html::submitButton('つぶやく！', ['class' => 'btn btn-primary']) ?>
-                    </div>
+                </div>
+                <div class="">
+                    <?= Html::submitButton('つぶやく！', ['class' => 'btn btn-danger']) ?>
                 </div>
             <?= Html::endForm() ?>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
         ※タイムラインとかを実装する予定
     </div>
 </div>
