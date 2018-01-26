@@ -1,10 +1,13 @@
 <?php 
 use yii\helpers\Html;
+use app\assets\VueSelectAsset;
 use app\widgets\FontAwesome;
 /**
  * @var $this yii\web\View
  * @var $form app\models\StatusForm
  */
+VueSelectAsset::register($this);
+
 $this->registerCss('
 .heading {
     color: #999;
@@ -28,6 +31,19 @@ $this->registerCss('
     padding: .5rem .75rem;
 }
 ');
+
+$this->registerJs('
+Vue.component("v-select", VueSelect.VueSelect);
+export default {
+  components: {vSelect},
+  data() {
+     return {
+        selected: null,
+        options: ["ねこ","うし","いぬ","ぞう","とら","うま"]
+     }
+  }
+}
+', $this::POS_END)
 ?>
 <div class="row">
     <div class="col-md-5">
@@ -49,6 +65,12 @@ $this->registerCss('
                         <a href="#" class="nav-item nav-link"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>ヒーロー戦隊</a>
                     </div>
                     <h6 class="heading">タグをカスタマイズする</h6>
+                    <template>
+                        <div>
+                            {{selected}}
+                            <v-select :value.sync="selected" :options="options" multiple ></v-select>
+                        </div>
+                    </template>
                     <?= Html::activeInput('text', $form, 'tag', ['class' => 'form-control']) ?>
                 </div>
             <?= Html::endForm() ?>
