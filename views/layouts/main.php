@@ -9,6 +9,12 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$this->registerCss('
+html {
+    font-size: 15px;
+}
+');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
