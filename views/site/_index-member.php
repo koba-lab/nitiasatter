@@ -20,6 +20,13 @@ $this->registerCss('
 .l-status-form .nav-pills .nav-link.active {
     border-radius: 2rem;
 }
+
+.l-select-program .nav .nav-item {
+    font-size: .9rem;
+}
+.l-select-program .nav .nav-link {
+    padding: .5rem .75rem;
+}
 ');
 ?>
 <div class="row">
@@ -29,10 +36,12 @@ $this->registerCss('
                 <div class="form-group">
                     <?= Html::activeTextarea($form, 'status', ['class' => 'form-control', 'placeholder' => '実況してみよう！']) ?>
                 </div>
-                <div class="form-group">
-                    <?= Html::submitButton('つぶやく！', ['class' => 'btn btn-danger']) ?>
+                <div class="form-group d-flex">
+                    <div class="ml-auto">
+                        <?= Html::submitButton('つぶやく！', ['class' => 'btn btn-danger']) ?>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="l-select-program form-group">
                     <h6 class="heading">番組を選ぶ</h6>
                     <div class="nav nav-pills nav-justified mb-3">
                         <a href="#" class="nav-item nav-link active"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>プリキュア</a>
