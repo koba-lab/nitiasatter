@@ -1,5 +1,6 @@
 <?php
 
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -11,7 +12,8 @@ $config = [
     'timeZone' => 'Asia/Tokyo', 
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        // '@npm'   => '@vendor/npm-asset',
+        '@npm-assets' => '@app/assets/node_modules',
     ],
     'components' => [
         'assetManager' => [

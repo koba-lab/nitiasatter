@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\components\AuthHandler;
 use app\models\StatusForm;
+use app\models\Program;
 
 class SiteController extends Controller
 {
@@ -73,10 +74,15 @@ class SiteController extends Controller
             return $this->refresh();
         }
 
-        $statusForm->setDefaultTag();
+        $statusForm->setDefaultTags();
+        $tags = [];
+        foreach(array_column(Yii::$app->params['nitiasaPrograms'], 'tags') as $tag) {
+            $tags = array_merge($tags, $tag);
+        }
 
         return $this->render('index', [
             'form' => $statusForm,
+            'tags' => $tags,
         ]);
     }
 

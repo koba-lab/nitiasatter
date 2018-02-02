@@ -15,11 +15,11 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class VueSelectAsset extends AssetBundle
+class VueMultiselectAsset extends AssetBundle
 {
-    public $basePath = '';
-    public $baseUrl = '';
-    public $css = [];
-    public $js = ['https://unpkg.com/vue-select@latest'];
+    public $sourcePath = '@npm-assets/vue-multiselect';
+    public $baseUrl = '@web';
+    public $css = ['dist/vue-multiselect.min.css'];
+    public $js = ['dist/vue-multiselect.min.js'];
     public $depends = ['app\assets\VuejsAsset'];
 }

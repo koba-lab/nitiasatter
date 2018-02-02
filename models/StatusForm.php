@@ -10,7 +10,7 @@ use yii\base\Model;
  */
 class StatusForm extends Model
 {
-    public $tag;
+    public $tags;
     public $status;
 
     /**
@@ -19,7 +19,7 @@ class StatusForm extends Model
     public function rules()
     {
         return [
-            ['tag', 'string', 'max' => 100],
+            ['tags', 'required'],
             ['status', 'string', 'max' => 280],
         ];
     }
@@ -27,10 +27,10 @@ class StatusForm extends Model
     /**
      * 
      */
-    public function setDefaultTag()
+    public function setDefaultTags()
     {
         $program = new Program;
-        $this->tag = implode(' ', $program->getCurrentTags());
+        $this->tags = $program->getCurrentTags();
     }
 
     /**
@@ -38,7 +38,7 @@ class StatusForm extends Model
      */
     public function postStatus()
     {
-        $this->status .= "\n" . $this->tag;
+        $this->status .= "\n" . implode(' ', $this->tags);
 
         if (!$this->validate()) {
             return false;

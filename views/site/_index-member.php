@@ -1,12 +1,12 @@
 <?php 
 use yii\helpers\Html;
-use app\assets\VueSelectAsset;
+use app\assets\VueMultiselectAsset;
 use app\widgets\FontAwesome;
 /**
  * @var $this yii\web\View
  * @var $form app\models\StatusForm
  */
-VueSelectAsset::register($this);
+VueMultiselectAsset::register($this);
 
 $this->registerCss('
 .heading {
@@ -33,17 +33,27 @@ $this->registerCss('
 ');
 
 $this->registerJs('
-Vue.component("v-select", VueSelect.VueSelect);
-export default {
-  components: {vSelect},
-  data() {
-     return {
-        selected: null,
-        options: ["ねこ","うし","いぬ","ぞう","とら","うま"]
-     }
-  }
-}
-', $this::POS_END)
+// @ref https://vue-multiselect.js.org/#sub-tagging
+new Vue({
+    el: "#input-tag",
+    components: {VueMultiselect: window.VueMultiselect.default},
+    data(){
+        return {
+            value: '.json_encode($form->tags).',
+            options: '.json_encode($tags).'
+        }
+    },
+    methods: {
+        addTag (newTag) {
+            if (newTag.slice(0,1) != "#") {
+                newTag = "#" + newTag
+            }
+            this.options.push(newTag)
+            this.value.push(newTag)
+        }
+    }
+})
+', $this::POS_END);
 ?>
 <div class="row">
     <div class="col-md-5">
@@ -65,13 +75,9 @@ export default {
                         <a href="#" class="nav-item nav-link"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>ヒーロー戦隊</a>
                     </div>
                     <h6 class="heading">タグをカスタマイズする</h6>
-                    <template>
-                        <div>
-                            {{selected}}
-                            <v-select :value.sync="selected" :options="options" multiple ></v-select>
-                        </div>
-                    </template>
-                    <?= Html::activeInput('text', $form, 'tag', ['class' => 'form-control']) ?>
+                    <div id="input-tag">
+                        <vue-multiselect name="testname" v-model="value" :options="options" :multiple="true" :taggable="true" @tag="addTag" placeholder="自分でタグを入力する" :tag-position="bottom"></multiselect>
+                    </div>
                 </div>
             <?= Html::endForm() ?>
         </div>
@@ -80,4 +86,3 @@ export default {
         ※タイムラインとかを実装する予定
     </div>
 </div>
-<!-- <?= var_export(Yii::$app->authClientCollection->getClient('twitter')->getUserAttributes(), TRUE) ?> -->
