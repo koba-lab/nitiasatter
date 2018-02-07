@@ -1,12 +1,14 @@
 <?php 
 use yii\helpers\Html;
 use app\assets\VueMultiselectAsset;
+use app\assets\AxiosAsset;
 use app\widgets\FontAwesome;
 /**
  * @var $this yii\web\View
  * @var $form app\models\StatusForm
  */
 VueMultiselectAsset::register($this);
+AxiosAsset::register($this);
 
 $this->registerCss('
 .heading {
@@ -35,11 +37,12 @@ $this->registerCss('
 $this->registerJs('
 // @ref https://vue-multiselect.js.org/#sub-tagging
 new Vue({
-    el: "#input-tag",
+    el: "#status-form",
     components: {VueMultiselect: window.VueMultiselect.default},
     data(){
         return {
-            value: '.json_encode($form->tags).',
+            status: "'.$form->status.'",
+            tags: '.json_encode($form->tags).',
             options: '.json_encode($tags).'
         }
     },
@@ -49,8 +52,20 @@ new Vue({
                 newTag = "#" + newTag
             }
             this.options.push(newTag)
-            this.value.push(newTag)
-        }
+            this.tags.push(newTag)
+        }, 
+        submit (event) {
+            axios.post("/", {
+                status: this.status,
+                tags: this.tags
+            })
+            .then(function(response) {
+                console.log("success!!")
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        },
     }
 })
 ', $this::POS_END);
@@ -58,13 +73,14 @@ new Vue({
 <div class="row">
     <div class="col-md-5">
         <div class="l-status-form">
-            <?= Html::beginForm() ?>
+            <?= Html::beginForm(NULL, NULL, ['id' => 'status-form', '@submit.prevent' => 'submit']) ?>
+                <?= Html::errorSummary($form) ?>
                 <div class="form-group">
-                    <?= Html::activeTextarea($form, 'status', ['class' => 'form-control', 'placeholder' => '実況してみよう！']) ?>
+                    <?= Html::activeTextarea($form, 'status', ['class' => 'form-control', 'placeholder' => '実況してみよう！', 'v-model' => 'status']) ?>
                 </div>
                 <div class="form-group d-flex">
                     <div class="ml-auto">
-                        <?= Html::submitButton('つぶやく！', ['class' => 'btn btn-danger']) ?>
+                        <button type="submit" class="btn btn-danger">つぶやく！</button>
                     </div>
                 </div>
                 <div class="l-select-program form-group">
@@ -76,7 +92,7 @@ new Vue({
                     </div>
                     <h6 class="heading">タグをカスタマイズする</h6>
                     <div id="input-tag">
-                        <vue-multiselect name="testname" v-model="value" :options="options" :multiple="true" :taggable="true" @tag="addTag" placeholder="自分でタグを入力する" :tag-position="bottom"></multiselect>
+                        <vue-multiselect v-model="tags" :options="options" :multiple="true" :taggable="true" @tag="addTag" placeholder="自分でタグを入力する"></multiselect>
                     </div>
                 </div>
             <?= Html::endForm() ?>
