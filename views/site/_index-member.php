@@ -55,10 +55,11 @@ new Vue({
             this.tags.push(newTag)
         }, 
         submit (event) {
-            axios.post("/", {
-                status: this.status,
-                tags: this.tags
-            })
+            let params = new FormData();
+            params.append("status", this.status);
+            params.append("tags", this.tags);
+
+            axios.post("/status", params)
             .then(function(response) {
                 console.log("success!!")
             })

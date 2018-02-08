@@ -69,11 +69,6 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $statusForm = new StatusForm;
-        if ($statusForm->load(Yii::$app->request->post()) && $statusForm->postStatus()) {
-            Yii::$app->session->setFlash('success', 'つぶやきの投稿が完了しました');
-            return $this->refresh();
-        }
-
         $statusForm->setDefaultTags();
         $tags = [];
         foreach(array_column(Yii::$app->params['nitiasaPrograms'], 'tags') as $tag) {
@@ -92,6 +87,22 @@ class SiteController extends Controller
     public function onAuthSuccess($client)
     {
         (new AuthHandler($client))->handle();
+    }
+
+    /**
+     * ajaxで受け取るやつ
+     */
+    public function actionStatus()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $statusForm = new StatusForm;
+        $statusForm->setAttributes(Yii::$app->request->post());
+        if ($statusForm->postStatus()) {
+            return ['result' => 'success'];
+        } else {
+            throw new \yii\web\BadRequestHttpException('Post Error');
+        }
     }
 
     /**

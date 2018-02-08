@@ -98,6 +98,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'status' => 'site/status',
             ],
         ],
     ],

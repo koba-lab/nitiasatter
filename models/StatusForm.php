@@ -38,8 +38,7 @@ class StatusForm extends Model
      */
     public function postStatus()
     {
-        $this->status .= "\n" . trim($this->tags);
-
+        $this->status .= "\n" . str_replace(',', ' ', $this->tags);
         if (!$this->validate()) {
             return false;
         }
