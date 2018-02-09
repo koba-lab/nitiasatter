@@ -1,12 +1,14 @@
 <?php 
 use yii\helpers\Html;
 use app\assets\VueMultiselectAsset;
+use app\assets\VueNotificationsAsset;
 use app\assets\AxiosAsset;
 use app\widgets\FontAwesome;
 /**
  * @var $this yii\web\View
  * @var $form app\models\StatusForm
  */
+VueNotificationsAsset::register($this);
 VueMultiselectAsset::register($this);
 AxiosAsset::register($this);
 
@@ -55,13 +57,15 @@ new Vue({
             this.tags.push(newTag)
         }, 
         submit (event) {
+            let form = event.target;
             let params = new FormData();
             params.append("status", this.status);
             params.append("tags", this.tags);
 
             axios.post("/status", params)
             .then(function(response) {
-                console.log("success!!")
+                form.reset();
+                console.log("success!!");
             })
             .catch(function (error) {
                 console.log(error)
