@@ -13,6 +13,7 @@ $this->title = 'ニチアサッター - ニチアサ実況用Twitterクライア
     <?= $this->render('_index-member', [
         'form' => $form,
         'tags' => $tags,
+        'currentProgram' => $currentProgram,
     ]) ?>
 <?php endif; ?>
     </div>

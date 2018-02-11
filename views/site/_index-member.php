@@ -13,6 +13,8 @@ VueMultiselectAsset::register($this);
 AxiosAsset::register($this);
 
 $this->registerCss('
+[v-cloak] {display: none;}
+
 .heading {
     color: #999;
     font-size: .8rem;
@@ -21,13 +23,6 @@ $this->registerCss('
     height: 20vh;
     min-height: 5rem;
 }
-.l-status-form .nav-pills a {
-    font-size: .9rem;
-}
-.l-status-form .nav-pills .nav-link.active {
-    border-radius: 2rem;
-}
-
 .l-select-program .nav .nav-item {
     font-size: .9rem;
 }
@@ -48,9 +43,18 @@ new Vue({
             'status' => $form->status,
             'tags' => $form->tags,
             'options' => $tags,
+            'nitiasaPrograms' => Yii::$app->params['nitiasaPrograms'],
+            'currentProgram' => $currentProgram,
         ]).'
     },
     methods: {
+        setProgram (key, event) {
+            this.tags.length = 0;
+            nitiasaPrograms[key].tags.forEach(function (tag, index) {
+                console.log(tag)
+                this.tags.push(tag)
+            });
+        },
         addTag (newTag) {
             if (newTag.slice(0,1) != "#") {
                 newTag = "#" + newTag
@@ -110,9 +114,16 @@ new Vue({
                 <div class="l-select-program form-group">
                     <h6 class="heading">番組を選ぶ</h6>
                     <div class="nav nav-pills nav-justified mb-3">
+                        <div v-for="(program, key) in nitiasaPrograms" class="nav-item nav-link">
+                            <label :for="'program-' + key" v-cloak><?= FontAwesome::widget(['icon' => 'hashtag']) ?>{{key}}</label>
+                            <input name="programs" type="radio" :id="'program-' + key" :value="program.tags" v-model="tags" hidden>
+                        </div>
+<?php /*
+                        <a  @click.prevent="setProgram(program.key, $event)" href="#" class="nav-item nav-link"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>{{key}}</a>
                         <a href="#" class="nav-item nav-link active"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>プリキュア</a>
                         <a href="#" class="nav-item nav-link"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>仮面ライダー</a>
                         <a href="#" class="nav-item nav-link"><?= FontAwesome::widget(['icon' => 'hashtag']) ?>ヒーロー戦隊</a>
+*/ ?>
                     </div>
                     <h6 class="heading">タグをカスタマイズする</h6>
                     <div id="input-tag">

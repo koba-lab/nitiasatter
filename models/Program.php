@@ -27,17 +27,27 @@ class Program extends Model
     public function getCurrentTags()
     {
         $tags = [];
-        foreach (Yii::$app->params['nitiasaPrograms'] as $program) {
-            // @fixme 一発で比較できるイケてるロジックぷりーず
-            $start = strtotime(date(sprintf('Y-m-d %s', $program['start_at'])));
-            $end = strtotime(date(sprintf('Y-m-d %s', $program['end_at'])));
-            if (time() >= $start && time() < $end) {
-                $tags = $program['tags'];
-                break;
-            }
+        if (isset(Yii::$app->params['nitiasaPrograms'][$this->getCurrentProgram()])) {
+            $tags = Yii::$app->params['nitiasaPrograms'][$this->getCurrentProgram()]['tags'];
         }
         return array_merge([
             '#nitiasa',
         ], $tags);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentProgram()
+    {
+        foreach (Yii::$app->params['nitiasaPrograms'] as $key => $program) {
+            // @fixme 一発で比較できるイケてるロジックぷりーず
+            $start = strtotime(date(sprintf('Y-m-d %s', $program['start_at'])));
+            $end = strtotime(date(sprintf('Y-m-d %s', $program['end_at'])));
+            if (time() >= $start && time() < $end) {
+                return $key;
+            }
+        }
+        return '';
     }
 }

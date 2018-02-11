@@ -75,7 +75,10 @@ class SiteController extends Controller
             $tags = array_merge($tags, $tag);
         }
 
+        $program = new Program;
+
         return $this->render('index', [
+            'currentProgram' => $program->getCurrentProgram(),
             'form' => $statusForm,
             'tags' => $tags,
         ]);
