@@ -41,12 +41,15 @@ class Program extends Model
      */
     public function getCurrentProgram()
     {
-        foreach (Yii::$app->params['nitiasaPrograms'] as $key => $program) {
-            // @fixme 一発で比較できるイケてるロジックぷりーず
-            $start = strtotime(date(sprintf('Y-m-d %s', $program['start_at'])));
-            $end = strtotime(date(sprintf('Y-m-d %s', $program['end_at'])));
-            if (time() >= $start && time() < $end) {
-                return $key;
+        // 判定は日曜のみ
+        if (date('w') == 0) {
+            foreach (Yii::$app->params['nitiasaPrograms'] as $key => $program) {
+                // @fixme 一発で比較できるイケてるロジックぷりーず
+                $start = strtotime(date(sprintf('Y-m-d %s', $program['start_at'])));
+                $end = strtotime(date(sprintf('Y-m-d %s', $program['end_at'])));
+                if (time() >= $start && time() < $end) {
+                    return $key;
+                }
             }
         }
         return '';
