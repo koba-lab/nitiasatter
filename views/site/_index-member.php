@@ -1,14 +1,14 @@
 <?php 
 use yii\helpers\Html;
 use app\assets\VueMultiselectAsset;
-use app\assets\VueNotificationsAsset;
+use app\assets\VueToastedAsset;
 use app\assets\AxiosAsset;
 use app\widgets\FontAwesome;
 /**
  * @var $this yii\web\View
  * @var $form app\models\StatusForm
  */
-VueNotificationsAsset::register($this);
+VueToastedAsset::register($this);
 VueMultiselectAsset::register($this);
 AxiosAsset::register($this);
 
@@ -38,15 +38,17 @@ $this->registerCss('
 
 $this->registerJs('
 // @ref https://vue-multiselect.js.org/#sub-tagging
+Vue.use(Toasted);
+
 new Vue({
     el: "#status-form",
     components: {VueMultiselect: window.VueMultiselect.default},
     data(){
-        return {
-            status: "'.$form->status.'",
-            tags: '.json_encode($form->tags).',
-            options: '.json_encode($tags).'
-        }
+        return '.json_encode([
+            'status' => $form->status,
+            'tags' => $form->tags,
+            'options' => $tags,
+        ]).'
     },
     methods: {
         addTag (newTag) {
@@ -59,20 +61,37 @@ new Vue({
         submit (event) {
             let form = event.target;
             let params = new FormData();
+            let toastOptions = {
+                position: "bottom-center",
+                duration: 3000,
+                type: "success",
+                fitToScreen: false,
+                fullWidth: true,
+                action: {
+                    text : "CLOSE",
+                    onClick : (e, toastObject) => {
+                        toastObject.goAway(0);
+                    }
+                }
+            };
+
             params.append("status", this.status);
             params.append("tags", this.tags);
-
             axios.post("/status", params)
             .then(function(response) {
                 form.reset();
-                console.log("success!!");
+                toastOptions.type = "success";
+                Vue.toasted.show("投稿が完了しました", toastOptions);
+                console.log(response);
             })
             .catch(function (error) {
+                toastOptions.type = "error";
+                Vue.toasted.show("投稿に失敗しました", toastOptions);
                 console.log(error)
             });
         },
     }
-})
+});
 ', $this::POS_END);
 ?>
 <div class="row">
