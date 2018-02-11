@@ -28,11 +28,12 @@ class Program extends Model
     {
         $tags = [];
         if (isset(Yii::$app->params['nitiasaPrograms'][$this->getCurrentProgram()])) {
-            $tags = Yii::$app->params['nitiasaPrograms'][$this->getCurrentProgram()]['tags'];
+            return Yii::$app->params['nitiasaPrograms'][$this->getCurrentProgram()]['tags'];
+        } else {
+            return [
+                '#nitiasa',
+            ];
         }
-        return array_merge([
-            '#nitiasa',
-        ], $tags);
     }
 
     /**
