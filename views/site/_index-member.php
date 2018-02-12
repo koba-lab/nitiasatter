@@ -103,7 +103,7 @@ new Vue({
 ', $this::POS_END);
 ?>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5 mx-auto">
         <div class="l-status-form">
             <?= Html::beginForm(NULL, NULL, ['id' => 'status-form', '@submit.prevent' => 'submit']) ?>
                 <?= Html::errorSummary($form) ?>
@@ -132,8 +132,5 @@ new Vue({
                 </div>
             <?= Html::endForm() ?>
         </div>
-    </div>
-    <div class="col-md-7">
-        ※タイムラインとかを実装する予定
     </div>
 </div>

@@ -9,15 +9,18 @@ $this->registerCss('
 .l-header {
     height: 50px;
 }
+.l-header .brand img {
+    max-height: 40px;
+}
 ');
 ?>
 <header>
     <div class="l-header container d-flex align-items-center">
-        <div class="mr-auto">
-            <?= Html::a(Yii::$app->name, '/', ['class' => 'd-block brand']) ?>
-        </div>
-        <div class="ml-auto">
-            <!-- 右カラム -->
+        <div class="mx-auto">
+            <a href="/" class="d-block brand">
+                <?= Html::img('/images/logo.png', ['class' => 'img-fluid']) ?>
+                <span class="sr-only"><?= Yii::$app->name ?></span>
+            </a>
         </div>
     </div>
 </header>
