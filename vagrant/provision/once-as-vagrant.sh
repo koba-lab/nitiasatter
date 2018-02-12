@@ -27,8 +27,11 @@ composer global require "fxp/composer-asset-plugin:^1.3.1" --no-progress
 info "Install project dependencies"
 cd /app
 composer --no-progress --prefer-dist install
+cd /app/assets
+yarn install
 
 info "Apply migrations"
+cd /app
 ./yii migrate --interactive=0
 ./tests/bin/yii migrate --interactive=0
 
