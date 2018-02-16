@@ -5,7 +5,7 @@
  */
 $this->title = 'ニチアサッター - ニチアサ実況用Twitterクライアント';
 ?>
-<div class="l-site-index">
+<div class="l-site-index mb-4">
     <div class="l-main-content">
 <?php if (Yii::$app->user->isGuest): ?>
     <?= $this->render('_index-guest') ?>

@@ -13,7 +13,7 @@ $this->registerCss('
 }
 ');
 ?>
-<div>
+<div class="text-center">
     <p>ニチアサッターは、ニチアサ実況をより快適に行うためのTwitterクライアントです。</p>
     <p>ニチアサったーで快適な実況生活を始めましょう！</p>
 </div>
@@ -24,7 +24,7 @@ $this->registerCss('
     ]);
     $client = $authAuthChoice->getClients()['twitter']; // twitterしか使わないので、1件固定で取得
 ?>
-    <div>
+    <div class="text-center">
         <?= Html::a(FontAwesome::widget(['icon' => 'twitter']).' ログインして始める', $authAuthChoice->createClientUrl($client), ['class' => 'btn btn-twitter btn-lg']) ?>
     </div>
 <?php 
