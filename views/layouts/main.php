@@ -67,16 +67,16 @@ html {
     </div>
 
     <footer class="footer mt-auto">
-    <script type="text/javascript">
-        var adstir_vars = {
-        ver: "4.0",
-        type: "native",
-        app_id: "MEDIA-e8ea5854",
-        ad_spot: 1
-        };
-        </script>
-        <script type="text/javascript" src="https://js.ad-stir.com/js/adstir_native.js"></script>
         <div class="container">
+            <script type="text/javascript">
+                var adstir_vars = {
+                    ver: "4.0",
+                    type: "native",
+                    app_id: "MEDIA-e8ea5854",
+                    ad_spot: 1
+                };
+            </script>
+            <script type="text/javascript" src="https://js.ad-stir.com/js/adstir_native.js"></script>
             <div class="text-center">
                 &copy; 2018 <?= Html::a('koba-lab', 'https://github.com/koba-lab', ['target'=>'_blank']) ?>
             </div>
