@@ -1,14 +1,10 @@
 <template>
-  <section class="container">
+  <section class="container d-flex justify-content-center">
     <div>
       <logo/>
-      <h1 class="title">
-        nitiasatterapp
-      </h1>
-      <h2 class="subtitle">
-        My dandy Nuxt.js project
-      </h2>
-      <div class="links">
+      <h1 class="title">{{ title }}</h1>
+      <h2 class="subtitle">My dandy Nuxt.js project</h2>
+      <!-- <div class="links">
         <a
           href="https://nuxtjs.org/"
           target="_blank"
@@ -17,7 +13,7 @@
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
           class="button--grey">GitHub</a>
-      </div>
+      </div>-->
     </div>
   </section>
 </template>
@@ -28,16 +24,19 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+
+  data() {
+    return {
+      title: 'ニチアサッター - ニチアサ実況用Twitterクライアント'
+    }
   }
 }
 </script>
 
 <style>
-
 .container {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
   text-align: center;
 }

@@ -3,11 +3,13 @@ const pkg = require('./package')
 module.exports = {
   mode: 'spa',
 
+  buildDir: './functions/nuxt',
+
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'ニチアサッター - ニチアサ実況用Twitterクライアント',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
