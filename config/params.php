@@ -4,11 +4,11 @@ return [
     'adminEmail' => 'admin@example.com',
     'nitiasaPrograms' => [
         'プリキュア' => [
-            'title' => 'スター☆トゥインクルプリキュア',
+            'title' => 'ヒーリングっど♥プリキュア',
             'tags' => [
                 '#nitiasa',
                 '#プリキュア',
-                '#スタプリ',
+                '#ヒープリ',
             ],
             'start_at' => '08:30',
             'end_at' => '09:00',
