@@ -1,23 +1,20 @@
 <template>
   <div class="home">
-    <div class="text-center">
-      <p>ニチアサッターは、ニチアサ実況をより快適に行うためのTwitterクライアントです。</p>
-      <p>ニチアサッターで快適な実況生活を始めましょう！</p>
-    </div>
-
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Nitiasatter"/>
+    <Unauthenticated v-if="!$auth.isAuthenticated" />
+    <Authenticated v-if="$auth.isAuthenticated" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Authenticated from '@/components/Authenticated'
+import Unauthenticated from '@/components/Unauthenticated'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
-  }
+    Authenticated,
+    Unauthenticated,
+  },
 }
 </script>

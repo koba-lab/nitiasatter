@@ -1,22 +1,44 @@
 <template>
-  <div id="app" class="text-center">
-    <div id="nav" class="py-5">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" class="container">
+    <div id="nav" class="text-center py-5">
+      <router-link to="/">
+        <img src="@/assets/images/logo.png" alt="nitiasatter">
+      </router-link>
     </div>
-    <router-view/>
+
+    <!-- content -->
+    <router-view/><!-- /content -->
+
+    <section>
+      <h3>env check</h3>
+      <dl>
+        <dt>NODE_ENV</dt>
+        <dd>{{env.NODE_ENV}}</dd>
+
+        <dt>VUE_APP_DOMAIN</dt>
+        <dd>{{env.VUE_APP_DOMAIN}}</dd>
+
+        <dt>VUE_APP_CLIENT_ID</dt>
+        <dd>{{env.VUE_APP_CLIENT_ID}}</dd>
+      </dl>
+    </section>
   </div>
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 export default {
-  
+  name: 'app',
+  computed: {
+    env() {
+      return process.env
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import 'node_modules/bootstrap/scss/bootstrap';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
